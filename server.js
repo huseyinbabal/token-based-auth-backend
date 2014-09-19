@@ -74,8 +74,8 @@ app.post('/signin', function(req, res) {
     });
 });
 
-app.get('/me', ensureAuthorized, function(req, res) {
-    User.findOne({token: bearerToken}, function(err, user) {
+app.get('/me/:token', ensureAuthorized, function(req, res) {
+    User.findOne({token: req.params.token}, function(err, user) {
         if (err) {
             res.json({
                 type: false,
