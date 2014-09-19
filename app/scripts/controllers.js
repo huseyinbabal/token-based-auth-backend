@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('angularRestfulAuth')
-    .controller('HomeCtrl', ['$rootScope', '$scope', '$location', 'Main', function($rootScope, $scope, $location, Main) {
+    .controller('HomeCtrl', ['$rootScope', '$scope', '$location', '$localStorage', 'Main', function($rootScope, $scope, $location, $localStorage, Main) {
 
         $scope.signin = function() {
             var formData = {
@@ -12,6 +12,7 @@ angular.module('angularRestfulAuth')
             }
 
             Main.signin(formData, function(res) {
+                $localStorage.token = res.data.token;
                 $location.path('/me');
             }, function() {
                 $rootScope.error = 'Failed to signin';
@@ -25,6 +26,7 @@ angular.module('angularRestfulAuth')
             }
 
             Main.save(formData, function(res) {
+                $localStorage.token = res.data.token;
                 $location.path('/me');
             }, function() {
                 $rootScope.error = 'Failed to signup';
