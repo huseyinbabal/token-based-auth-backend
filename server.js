@@ -65,13 +65,7 @@ app.post('/signin', function(req, res) {
     });
 });
 
-app.get('/me', function(req, res) {
-    var bearerToken;
-    var bearerHeader = req.headers["authorization"];
-    if (typeof bearerHeader !== 'undefined') {
-        var bearer = bearerHeader.split(" ");
-        bearerToken = bearer[1];
-    }
+app.get('/me', ensureAuthorized, function(req, res) {
     User.findOne({token: bearerToken}, function(err, user) {
         if (err) {
             res.json({
@@ -86,6 +80,18 @@ app.get('/me', function(req, res) {
         }
     });
 });
+
+function ensureAuthorized(req, res, next) {
+    var bearerToken;
+    var bearerHeader = req.headers["authorization"];
+    if (typeof bearerHeader !== 'undefined') {
+        var bearer = bearerHeader.split(" ");
+        bearerToken = bearer[1];
+        next();
+    } else {
+        res.send(403);
+    }
+}
 
 process.on('uncaughtException', function(err) {
     console.log(err);
