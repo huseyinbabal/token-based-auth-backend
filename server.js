@@ -26,6 +26,10 @@ app.get('/me', function(req, res) {
 
 });
 
+process.on('uncaughtException', function(err) {
+    console.log(err);
+});
+
 // Start Server
 app.listen(port, function () {
     console.log( "Express server listening on port " + port);
