@@ -15,6 +15,10 @@ angular.module('angularRestfulAuth', [
             templateUrl: 'partials/signin.html',
             controller: 'HomeCtrl'
         }).
+        when('/signup', {
+            templateUrl: 'partials/signup.html',
+            controller: 'HomeCtrl'
+        }).
         when('/me', {
             templateUrl: 'partials/me.html',
             controller: 'HomeCtrl'

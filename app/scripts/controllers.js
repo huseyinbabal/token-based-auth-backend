@@ -18,6 +18,19 @@ angular.module('angularRestfulAuth')
             })
         };
 
+        $scope.signup = function() {
+            var formData = {
+                email: $scope.email,
+                password: $scope.password
+            }
+
+            Main.save(formData, function(res) {
+                $location.path('/me');
+            }, function() {
+                $rootScope.error = 'Failed to signup';
+            })
+        };
+
         $scope.me = function() {
             Main.me(function(res) {
                 $scope.myDetails = res;
