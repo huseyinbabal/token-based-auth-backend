@@ -60,10 +60,13 @@ app.post('/signin', function(req, res) {
                 userModel.email = req.body.email;
                 userModel.password = req.body.password;
                 userModel.save(function(err, user) {
-                    res.json({
-                        type: true,
-                        data: user,
-                        token: jwt.sign(user, process.env.JWT_SECRET)
+                    user.token = jwt.sign(user, process.env.JWT_SECRET);
+                    user.save(function(err, user1) {
+                        res.json({
+                            type: true,
+                            data: user1,
+                            token: user1.token
+                        });
                     });
                 })
             }
