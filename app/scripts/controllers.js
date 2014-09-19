@@ -35,7 +35,7 @@ angular.module('angularRestfulAuth')
             Main.me(function(res) {
                 $scope.myDetails = res;
             }, function() {
-                $rootScope.error = 'Failed to signin';
+                $rootScope.error = 'Failed to fetch details';
             })
         };
 
@@ -46,4 +46,13 @@ angular.module('angularRestfulAuth')
                 $rootScope.error = 'Failed to logout';
             });
         };
-    }]);
+    }])
+
+.controller('MeCtrl', ['$rootScope', '$scope', '$location', 'Main', function($rootScope, $scope, $location, Main) {
+
+        Main.me(function(res) {
+            $scope.myDetails = res;
+        }, function() {
+            $rootScope.error = 'Failed to fetch details';
+        })
+}]);
