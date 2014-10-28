@@ -74,8 +74,8 @@ app.post('/signin', function(req, res) {
     });
 });
 
-app.get('/me/:token', ensureAuthorized, function(req, res) {
-    User.findOne({token: req.params.token}, function(err, user) {
+app.get('/me', ensureAuthorized, function(req, res) {
+    User.findOne({token: req.token}, function(err, user) {
         if (err) {
             res.json({
                 type: false,
@@ -96,6 +96,7 @@ function ensureAuthorized(req, res, next) {
     if (typeof bearerHeader !== 'undefined') {
         var bearer = bearerHeader.split(" ");
         bearerToken = bearer[1];
+        req.token = bearerToken;
         next();
     } else {
         res.send(403);
