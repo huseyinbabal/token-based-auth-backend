@@ -32,11 +32,18 @@ app.post('/authenticate', function(req, res) {
                 data: "Error occured: " + err
             });
         } else {
-            res.json({
-                type: true,
-                data: user,
-                token: user.token
-            });
+            if (user) {
+               res.json({
+                    type: true,
+                    data: user,
+                    token: user.token
+                }); 
+            } else {
+                res.json({
+                    type: false,
+                    data: "Incorrect email/password"
+                });    
+            }
         }
     });
 });
