@@ -49,7 +49,7 @@ app.post('/authenticate', function(req, res) {
 });
 
 
-app.post('/signin', function(req, res) {
+app.post('/signup', function(req, res) {
     User.findOne({email: req.body.email, password: req.body.password}, function(err, user) {
         if (err) {
             res.json({
